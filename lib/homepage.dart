@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_blog_gg/forms.dart';
 import 'package:flutter_blog_gg/forms_edit.dart';
+import 'package:flutter_blog_gg/search_form.dart';
 import 'package:flutter_offline/flutter_offline.dart';
 import 'package:flutter_speed_dial/flutter_speed_dial.dart';
 
@@ -134,7 +135,14 @@ class _HomePageState extends State<HomePage> {
             child: const Icon(Icons.search),
             foregroundColor: ThemeData().secondaryHeaderColor,
             backgroundColor: ThemeData().primaryColor,
-            onTap: () {},
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => const SearchForm(),
+                ),
+              );
+            },
             label: 'Search task',
             labelStyle: TextStyle(
                 fontWeight: FontWeight.w500,
