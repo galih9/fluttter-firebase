@@ -48,16 +48,19 @@ class _SearchFormState extends State<SearchForm> {
                 ),
               ),
               StreamBuilder(
-                  stream: (textController.text == "")
-                      ? users.snapshots()
-                      : users
-                          .where("nama", arrayContains: textController.text)
-                          .snapshots(),
+                  stream: users
+                      .where("nama",
+                          isGreaterThanOrEqualTo: textController.text)
+                      .where('nama', isLessThan: textController.text + 'z')
+                      .snapshots(),
                   builder: (BuildContext context,
                       AsyncSnapshot<QuerySnapshot> snapshot) {
                     if (!snapshot.hasData) {
                       return const Center(child: Text("Loading ..."));
-                    } else if (textController.text != "") {
+                    } else if (snapshot.hasData) {
+                      debugPrint("debug " +
+                          snapshot.data!.docs.toString() +
+                          textController.text);
                       return Padding(
                         padding: const EdgeInsets.only(top: 70),
                         child: ListView(
@@ -83,30 +86,11 @@ class _SearchFormState extends State<SearchForm> {
                         ),
                       );
                     }
-                    return Padding(
-                      padding: const EdgeInsets.only(top: 70),
-                      child: ListView(
-                        children: snapshot.data!.docs.map((e) {
-                          return Center(
-                            child: ListTile(
-                              title: Text(e['nama']),
-                              trailing: Wrap(
-                                children: <Widget>[
-                                  IconButton(
-                                      onPressed: () {},
-                                      icon: const Icon(Icons.edit)), // icon-1
-                                  IconButton(
-                                      onPressed: () {
-                                        users.doc(e.id).delete();
-                                      },
-                                      icon: const Icon(Icons.delete)),
-                                ],
-                              ),
-                            ),
-                          );
-                        }).toList(),
-                      ),
-                    );
+                    return const Padding(
+                        padding: EdgeInsets.only(top: 70),
+                        child: Center(
+                          child: Text("Nothing here"),
+                        ));
                   }),
             ],
           ),

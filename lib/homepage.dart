@@ -1,8 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_blog_gg/forms.dart';
-import 'package:flutter_blog_gg/forms_edit.dart';
-import 'package:flutter_blog_gg/search_form.dart';
+import 'package:flutter_blog_gg/forms/forms.dart';
+import 'package:flutter_blog_gg/forms/forms_edit.dart';
+import 'package:flutter_blog_gg/forms/search_form.dart';
 import 'package:flutter_offline/flutter_offline.dart';
 import 'package:flutter_speed_dial/flutter_speed_dial.dart';
 
