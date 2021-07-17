@@ -23,7 +23,9 @@ class _ProfilePageState extends State<ProfilePage> {
             onPressed: () {
               final provider =
                   Provider.of<GoogleSignInProvider>(context, listen: false);
-              provider.googleLogout();
+              provider.googleLogout().whenComplete(() {
+                Navigator.pop(context);
+              });
             },
             child: const Text(
               "Logout",
