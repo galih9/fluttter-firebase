@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_blog_gg/provider/sign_in.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:provider/provider.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({Key? key}) : super(key: key);
@@ -94,6 +97,30 @@ class _LoginPageState extends State<LoginPage> {
             onPressed: _loginPressed,
           ),
           TextButton(
+            child: const Text('Or'),
+            onPressed: () {},
+            style: ButtonStyle(
+              foregroundColor: MaterialStateProperty.all(Colors.black),
+              overlayColor: MaterialStateProperty.all(Colors.transparent),
+            ),
+          ),
+          ElevatedButton.icon(
+            style: ElevatedButton.styleFrom(
+                primary: Colors.white,
+                onPrimary: Colors.black,
+                minimumSize: const Size(double.infinity, 50)),
+            icon: const FaIcon(
+              FontAwesomeIcons.google,
+              color: Colors.red,
+            ),
+            label: const Text('Sign In with Google'),
+            onPressed: () {
+              final provider =
+                  Provider.of<GoogleSignInProvider>(context, listen: false);
+              provider.googleLogIn();
+            },
+          ),
+          TextButton(
             child: const Text('Dont have an account? Tap here to register.'),
             onPressed: _formChange,
             style: ButtonStyle(
@@ -117,6 +144,22 @@ class _LoginPageState extends State<LoginPage> {
           ElevatedButton(
             child: const Text('Create an Account'),
             onPressed: _createAccountPressed,
+          ),
+          ElevatedButton.icon(
+            style: ElevatedButton.styleFrom(
+                primary: Colors.white,
+                onPrimary: Colors.black,
+                minimumSize: const Size(double.infinity, 50)),
+            icon: const FaIcon(
+              FontAwesomeIcons.google,
+              color: Colors.red,
+            ),
+            label: const Text('Sign In with Google'),
+            onPressed: () {
+              final provider =
+                  Provider.of<GoogleSignInProvider>(context, listen: false);
+              provider.googleLogIn();
+            },
           ),
           TextButton(
             child: const Text('Have an account? Click here to login.'),
