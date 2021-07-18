@@ -19,7 +19,8 @@ class _HomePageState extends State<HomePage> {
   @override
   void initState() {
     super.initState();
-    if (currentUser!.emailVerified == false) {
+    if (currentUser!.metadata.creationTime ==
+        currentUser!.metadata.lastSignInTime) {
       registerNewAccount();
     }
   }
