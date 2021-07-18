@@ -2,7 +2,6 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_blog_gg/auth/login.dart';
 import 'package:flutter_blog_gg/homepage.dart';
-import 'package:flutter_blog_gg/screens/profile.dart';
 
 class AuthWidget extends StatefulWidget {
   const AuthWidget({Key? key}) : super(key: key);

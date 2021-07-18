@@ -46,6 +46,7 @@ class _ProfilePageState extends State<ProfilePage> {
           ),
           Text(user!.displayName!),
           Text(user!.email!),
+          Text(user!.emailVerified.toString()),
         ]),
       ),
     );

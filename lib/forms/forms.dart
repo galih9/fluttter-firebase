@@ -11,7 +11,7 @@ class AddForm extends StatefulWidget {
 class _AddFormState extends State<AddForm> {
   final _formKey = GlobalKey<FormState>();
   final textController = TextEditingController();
-  CollectionReference users = FirebaseFirestore.instance.collection("users");
+  CollectionReference todos = FirebaseFirestore.instance.collection("todos");
 
   @override
   Widget build(BuildContext context) {
@@ -21,7 +21,7 @@ class _AddFormState extends State<AddForm> {
           actions: [
             TextButton(
               onPressed: () {
-                users.add({'nama': textController.text}).whenComplete(() {
+                todos.add({'nama': textController.text}).whenComplete(() {
                   textController.text = "";
                   Navigator.pop(context);
                 });

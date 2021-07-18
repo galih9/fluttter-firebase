@@ -10,7 +10,7 @@ class SearchForm extends StatefulWidget {
 
 class _SearchFormState extends State<SearchForm> {
   final textController = TextEditingController();
-  CollectionReference users = FirebaseFirestore.instance.collection("users");
+  CollectionReference todos = FirebaseFirestore.instance.collection("todos");
 
   @override
   Widget build(BuildContext context) {
@@ -48,7 +48,7 @@ class _SearchFormState extends State<SearchForm> {
                 ),
               ),
               StreamBuilder(
-                  stream: users
+                  stream: todos
                       .where("nama",
                           isGreaterThanOrEqualTo: textController.text)
                       .where('nama', isLessThan: textController.text + 'z')
@@ -75,7 +75,7 @@ class _SearchFormState extends State<SearchForm> {
                                         icon: const Icon(Icons.edit)), // icon-1
                                     IconButton(
                                         onPressed: () {
-                                          users.doc(e.id).delete();
+                                          todos.doc(e.id).delete();
                                         },
                                         icon: const Icon(Icons.delete)),
                                   ],
