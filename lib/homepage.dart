@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_blog_gg/chats/chat_homepage.dart';
 import 'package:flutter_blog_gg/screens/profile.dart';
 import 'package:flutter_blog_gg/tasks/tasks.dart';
 
@@ -43,17 +44,14 @@ class _HomePageState extends State<HomePage> {
   static const TextStyle optionStyle =
       TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
 
-  static const List<Widget> _widgetOptions = <Widget>[
-    Text(
-      'Index 0: Chat',
-      style: optionStyle,
-    ),
-    TasksPage(),
-    Text(
+  final List<Widget> _widgetOptions = <Widget>[
+    ChatHomePage(),
+    const TasksPage(),
+    const Text(
       'Index 2: Map',
       style: optionStyle,
     ),
-    Text(
+    const Text(
       'Index 3: Settings',
       style: optionStyle,
     ),
