@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_blog_gg/chats/chat_room.dart';
 
 class ChatTile extends StatelessWidget {
   final Color textUnreadGreenColor = const Color.fromARGB(255, 8, 211, 111);
@@ -10,6 +11,14 @@ class ChatTile extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.all(4.0),
       child: ListTile(
+        onTap: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => ChatRoomPage(),
+            ),
+          );
+        },
         leading: const CircleAvatar(
           radius: 30.0,
           backgroundColor: Colors.transparent,
