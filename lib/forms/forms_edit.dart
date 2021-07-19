@@ -13,7 +13,7 @@ class EditForm extends StatefulWidget {
 
 class _EditFormState extends State<EditForm> {
   var textController = TextEditingController();
-  CollectionReference users = FirebaseFirestore.instance.collection("users");
+  CollectionReference todos = FirebaseFirestore.instance.collection("todos");
 
   @override
   void initState() {
@@ -40,7 +40,7 @@ class _EditFormState extends State<EditForm> {
                     actions: [
                       TextButton(
                         onPressed: () {
-                          users.doc(widget.docId).update(
+                          todos.doc(widget.docId).update(
                               {"nama": textController.text}).whenComplete(() {
                             textController.text = "";
                             Navigator.pop(context);

@@ -1,48 +1,48 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_blog_gg/forms/base_form.dart';
 
-class CustomForm extends StatefulWidget {
-  const CustomForm({Key? key, required this.typeForm}) : super(key: key);
-
-  final String typeForm;
+class AddForm extends StatefulWidget {
+  const AddForm({Key? key}) : super(key: key);
 
   @override
-  _CustomFormState createState() => _CustomFormState();
+  _AddFormState createState() => _AddFormState();
 }
 
-class _CustomFormState extends State<CustomForm> {
-  late final String selectedText;
-  late final String selectedForm;
-  late final String selectedActionText;
-  late final String selectedHint;
-
-  @override
-  void initState() {
-    super.initState();
-    if (widget.typeForm == "add") {
-      selectedForm = "single";
-      selectedText = "Add Task";
-      selectedActionText = "Save";
-      selectedHint = "Enter your task name";
-    } else if (widget.typeForm == "edit") {
-      selectedForm = "single";
-      selectedText = "Update Task";
-      selectedActionText = "Edit";
-      selectedHint = "";
-    } else if (widget.typeForm == "search") {
-      selectedForm = "search";
-      selectedText = "Search Task";
-      selectedActionText = "";
-      selectedHint = "Search here";
-    }
-  }
+class _AddFormState extends State<AddForm> {
+  final _formKey = GlobalKey<FormState>();
+  final textController = TextEditingController();
+  CollectionReference todos = FirebaseFirestore.instance.collection("todos");
 
   @override
   Widget build(BuildContext context) {
-    return CustomFormView(
-      titleForm: selectedText,
-      typeForm: selectedForm,
-      actionText: selectedActionText,
-    );
+    return Scaffold(
+        appBar: AppBar(
+          title: const Text("Add user"),
+          actions: [
+            TextButton(
+              onPressed: () {
+                todos.add({'nama': textController.text}).whenComplete(() {
+                  textController.text = "";
+                  Navigator.pop(context);
+                });
+              },
+              child: const Text(
+                "Save",
+                style: TextStyle(color: Colors.white, fontSize: 20),
+              ),
+            ),
+          ],
+        ),
+        body: Form(
+          key: _formKey,
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 7, vertical: 10),
+            child: TextField(
+              controller: textController,
+              decoration: const InputDecoration(
+                  border: OutlineInputBorder(), hintText: 'Enter a name'),
+            ),
+          ),
+        ));
   }
 }
