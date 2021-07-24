@@ -29,7 +29,7 @@ class _ChatRoomPageState extends State<ChatRoomPage> {
   void initState() {
     super.initState();
     message = FirebaseFirestore.instance
-        .collection("message")
+        .collection("chat")
         .doc(widget.roomId)
         .collection('messages');
     debugPrint(widget.roomId);

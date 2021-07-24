@@ -18,11 +18,11 @@ class _ChatMessagesState extends State<ChatMessages> {
   void initState() {
     super.initState();
     chatData = FirebaseFirestore.instance
-        .collection("message")
+        .collection("chat")
         .doc(widget.roomId)
         .collection('messages');
-    final user = FirebaseAuth.instance.currentUser;
     debugPrint(widget.roomId);
+    final user = FirebaseAuth.instance.currentUser;
   }
 
   @override
@@ -30,14 +30,10 @@ class _ChatMessagesState extends State<ChatMessages> {
     return Padding(
       padding: EdgeInsets.only(left: 1.h, top: 1.h, right: 1.h, bottom: 10.h),
       child: StreamBuilder(
-        stream: chatData.orderBy('sentAt', descending: false).snapshots(),
+        stream: chatData.snapshots(),
         builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
           if (!snapshot.hasData) {
             return const Center(child: Text("Loading ..."));
-          } else if (snapshot.data!.size == 0) {
-            return const Center(
-              child: Text('No chat here :D'),
-            );
           }
           return ListView(
             children: snapshot.data!.docs.map((e) {
