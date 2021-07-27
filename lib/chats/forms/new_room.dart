@@ -52,7 +52,7 @@ class _AddNewRoomState extends State<AddNewRoom> {
                         'createdAt': resTimestamp,
                         'createdBy': user!.uid,
                         'groupIcon': '',
-                        'groupTitle': user!.displayName,
+                        'groupTitle': e['name'],
                         'id': messageId,
                         'members': [user!.uid, e.id],
                         'recentMessage': {

@@ -13,6 +13,7 @@ class ChatMessages extends StatefulWidget {
 
 class _ChatMessagesState extends State<ChatMessages> {
   late CollectionReference chatData;
+  final user = FirebaseAuth.instance.currentUser;
 
   @override
   void initState() {
@@ -37,9 +38,43 @@ class _ChatMessagesState extends State<ChatMessages> {
           }
           return ListView(
             children: snapshot.data!.docs.map((e) {
-              return ListTile(
-                title: Text(e['messageText']),
-              );
+              if (e['sentBy'] != user!.uid) {
+                return Padding(
+                  padding: const EdgeInsets.only(bottom: 10),
+                  child: Align(
+                    alignment: Alignment.centerLeft,
+                    child: Container(
+                      height: 5.h,
+                      decoration: BoxDecoration(
+                        color: Colors.cyan,
+                        borderRadius: BorderRadius.circular(5),
+                      ),
+                      child: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Text(e['messageText']),
+                      ),
+                    ),
+                  ),
+                );
+              } else {
+                return Padding(
+                  padding: const EdgeInsets.only(bottom: 10),
+                  child: Align(
+                    alignment: Alignment.centerRight,
+                    child: Container(
+                      height: 5.h,
+                      decoration: BoxDecoration(
+                        color: Colors.blue,
+                        borderRadius: BorderRadius.circular(5),
+                      ),
+                      child: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Text(e['messageText']),
+                      ),
+                    ),
+                  ),
+                );
+              }
             }).toList(),
           );
         },

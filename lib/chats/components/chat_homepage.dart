@@ -35,8 +35,30 @@ class _ChatHomePageState extends State<ChatHomePage> {
         if (!snapshot.hasData) {
           return const Center(child: Text("Loading ..."));
         } else if (snapshot.data!.size == 0) {
-          return const Center(
-            child: Text('No chat here :D'),
+          return Stack(
+            fit: StackFit.expand,
+            children: [
+              const Center(
+                child: Text(
+                    'you have no chat :( \n create a new chat right now \n by clicking the plus button'),
+              ),
+              Positioned(
+                right: 2.h,
+                bottom: 2.h,
+                child: FloatingActionButton(
+                  heroTag: 'add',
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => AddNewRoom(),
+                      ),
+                    );
+                  },
+                  child: const Icon(Icons.add),
+                ),
+              ),
+            ],
           );
         }
         return Stack(
