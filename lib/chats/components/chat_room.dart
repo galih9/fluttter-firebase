@@ -1,17 +1,19 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_blog_gg/chats/chat_message.dart';
+import 'chat_message.dart';
 
 class ChatRoomPage extends StatefulWidget {
   final String roomTitle;
   final String photoUrl;
   final String roomId;
+  final String groupId;
 
   const ChatRoomPage(
       {Key? key,
       required this.roomTitle,
       required this.photoUrl,
+      required this.groupId,
       required this.roomId})
       : super(key: key);
 
@@ -20,6 +22,7 @@ class ChatRoomPage extends StatefulWidget {
 }
 
 class _ChatRoomPageState extends State<ChatRoomPage> {
+  CollectionReference groups = FirebaseFirestore.instance.collection("group");
   final chatController = TextEditingController();
   late CollectionReference message;
   final user = FirebaseAuth.instance.currentUser;
@@ -44,7 +47,10 @@ class _ChatRoomPageState extends State<ChatRoomPage> {
           children: [
             CircleAvatar(
               backgroundColor: Colors.transparent,
-              foregroundImage: NetworkImage(widget.photoUrl),
+              foregroundImage: widget.photoUrl != ''
+                  ? NetworkImage(widget.photoUrl)
+                  : const NetworkImage(
+                      'https://image.freepik.com/free-vector/chat-bubble_53876-25540.jpg'),
             ),
             Padding(
               padding: const EdgeInsets.only(left: 9),
@@ -100,7 +106,16 @@ class _ChatRoomPageState extends State<ChatRoomPage> {
                           'sentAt': resTimestamp,
                           'sentBy': user!.uid
                         }).whenComplete(() {
-                          chatController.text = "";
+                          groups.doc(widget.groupId).update({
+                            'recentMessage': {
+                              'messageText': chatController.text,
+                              'readBy': {
+                                'sentAt': resTimestamp,
+                              }
+                            }
+                          }).whenComplete(() {
+                            chatController.text = "";
+                          });
                         });
                       },
                       child: const Icon(Icons.send)),

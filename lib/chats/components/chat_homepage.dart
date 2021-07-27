@@ -1,7 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_blog_gg/chats/chat_tile.dart';
+import 'package:flutter_blog_gg/chats/forms/new_room.dart';
+import 'chat_tile.dart';
 import 'package:sizer/sizer.dart';
 
 class ChatHomePage extends StatefulWidget {
@@ -47,6 +48,7 @@ class _ChatHomePageState extends State<ChatHomePage> {
                   roomId: e['id'],
                   recentMessage: e['recentMessage']['messageText'],
                   roomTitle: e['groupTitle'],
+                  groupId: e.id,
                   photoUrl: e['groupIcon'],
                   lastSent: e['recentMessage']['readBy']['sentAt'],
                 );
@@ -57,7 +59,14 @@ class _ChatHomePageState extends State<ChatHomePage> {
               bottom: 2.h,
               child: FloatingActionButton(
                 heroTag: 'add',
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => AddNewRoom(),
+                    ),
+                  );
+                },
                 child: const Icon(Icons.add),
               ),
             ),

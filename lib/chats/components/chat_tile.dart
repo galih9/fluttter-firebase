@@ -1,6 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_blog_gg/chats/chat_room.dart';
+import 'chat_room.dart';
 import 'package:jiffy/jiffy.dart';
 
 class ChatTile extends StatelessWidget {
@@ -11,6 +11,7 @@ class ChatTile extends StatelessWidget {
   final String photoUrl;
   final Timestamp lastSent;
   final String roomId;
+  final String groupId;
 
   const ChatTile(
       {Key? key,
@@ -18,6 +19,7 @@ class ChatTile extends StatelessWidget {
       required this.roomTitle,
       required this.photoUrl,
       required this.lastSent,
+      required this.groupId,
       required this.roomId})
       : super(key: key);
 
@@ -33,6 +35,7 @@ class ChatTile extends StatelessWidget {
               builder: (context) => ChatRoomPage(
                 roomTitle: roomTitle,
                 photoUrl: photoUrl,
+                groupId: groupId,
                 roomId: roomId,
               ),
             ),
@@ -41,7 +44,10 @@ class ChatTile extends StatelessWidget {
         leading: CircleAvatar(
           radius: 30.0,
           backgroundColor: Colors.transparent,
-          backgroundImage: NetworkImage(photoUrl),
+          backgroundImage: photoUrl != ''
+              ? NetworkImage(photoUrl)
+              : const NetworkImage(
+                  'https://image.freepik.com/free-vector/chat-bubble_53876-25540.jpg'),
         ),
         title: Text(
           roomTitle,

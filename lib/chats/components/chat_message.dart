@@ -30,7 +30,7 @@ class _ChatMessagesState extends State<ChatMessages> {
     return Padding(
       padding: EdgeInsets.only(left: 1.h, top: 1.h, right: 1.h, bottom: 10.h),
       child: StreamBuilder(
-        stream: chatData.snapshots(),
+        stream: chatData.orderBy('sentAt', descending: false).snapshots(),
         builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
           if (!snapshot.hasData) {
             return const Center(child: Text("Loading ..."));
