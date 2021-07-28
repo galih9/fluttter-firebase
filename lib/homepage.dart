@@ -1,6 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_blog_gg/chats/chat_homepage.dart';
+import 'package:flutter_blog_gg/maps/google_maps.dart';
 import 'package:flutter_blog_gg/screens/profile.dart';
 import 'package:flutter_blog_gg/tasks/tasks.dart';
 
@@ -48,10 +50,7 @@ class _HomePageState extends State<HomePage> {
   final List<Widget> _widgetOptions = <Widget>[
     const ChatHomePage(),
     const TasksPage(),
-    const Text(
-      'Index 2: Map',
-      style: optionStyle,
-    ),
+    const MyMapsView(),
     const Text(
       'Index 3: Settings',
       style: optionStyle,
