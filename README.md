@@ -22,4 +22,5 @@ Step install run these command
 1. flutter pub get
 2. flutter pub run flutter_launcher_icons:main
 3. flutter doctor -v
-4. flutter run
+4. ./gradlew signingReport or gradlew signingReport
+5. flutter run
