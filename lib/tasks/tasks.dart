@@ -71,6 +71,19 @@ class _TasksPageState extends State<TasksPage> {
                                         ),
                                       );
                                     },
+                                    icon: const Icon(Icons.info)), // icon-1
+                                IconButton(
+                                    onPressed: () {
+                                      Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                          builder: (context) => EditForm(
+                                            ogName: e['nama'],
+                                            docId: e.id,
+                                          ),
+                                        ),
+                                      );
+                                    },
                                     icon: const Icon(Icons.edit)), // icon-1
                                 IconButton(
                                     onPressed: () {

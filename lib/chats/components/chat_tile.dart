@@ -1,10 +1,27 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_blog_gg/chats/chat_room.dart';
+import 'chat_room.dart';
+import 'package:jiffy/jiffy.dart';
 
 class ChatTile extends StatelessWidget {
   final Color textUnreadGreenColor = const Color.fromARGB(255, 8, 211, 111);
 
-  const ChatTile({Key? key}) : super(key: key);
+  final String recentMessage;
+  final String roomTitle;
+  final String photoUrl;
+  final Timestamp lastSent;
+  final String roomId;
+  final String groupId;
+
+  const ChatTile(
+      {Key? key,
+      required this.recentMessage,
+      required this.roomTitle,
+      required this.photoUrl,
+      required this.lastSent,
+      required this.groupId,
+      required this.roomId})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -15,27 +32,34 @@ class ChatTile extends StatelessWidget {
           Navigator.push(
             context,
             MaterialPageRoute(
-              builder: (context) => ChatRoomPage(),
+              builder: (context) => ChatRoomPage(
+                roomTitle: roomTitle,
+                photoUrl: photoUrl,
+                groupId: groupId,
+                roomId: roomId,
+              ),
             ),
           );
         },
-        leading: const CircleAvatar(
+        leading: CircleAvatar(
           radius: 30.0,
           backgroundColor: Colors.transparent,
-          backgroundImage: NetworkImage(
-              'https://static.wikia.nocookie.net/megamitensei/images/2/28/Phantom_Thieves_Logo.png'),
+          backgroundImage: photoUrl != ''
+              ? NetworkImage(photoUrl)
+              : const NetworkImage(
+                  'https://image.freepik.com/free-vector/chat-bubble_53876-25540.jpg'),
         ),
-        title: const Text(
-          'kamu',
-          style: TextStyle(
+        title: Text(
+          roomTitle,
+          style: const TextStyle(
             fontSize: 18.0,
             color: Colors.black,
           ),
         ),
-        subtitle: const Text(
-          'Hey duude',
+        subtitle: Text(
+          recentMessage,
           overflow: TextOverflow.ellipsis,
-          style: TextStyle(
+          style: const TextStyle(
             fontSize: 16.0,
             color: Colors.grey,
           ),
@@ -73,9 +97,9 @@ class ChatTile extends StatelessWidget {
   }
 
   Widget buildTextTime() {
-    return const Text(
-      '10.20',
-      style: TextStyle(
+    return Text(
+      Jiffy(lastSent.toDate()).format('h.mm'),
+      style: const TextStyle(
         color: Colors.grey,
       ),
     );

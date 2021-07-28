@@ -6,6 +6,8 @@ import 'package:flutter_blog_gg/maps/google_maps.dart';
 import 'package:flutter_blog_gg/screens/profile.dart';
 import 'package:flutter_blog_gg/tasks/tasks.dart';
 
+import 'chats/components/chat_homepage.dart';
+
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
 
@@ -46,7 +48,7 @@ class _HomePageState extends State<HomePage> {
       TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
 
   final List<Widget> _widgetOptions = <Widget>[
-    ChatHomePage(),
+    const ChatHomePage(),
     const TasksPage(),
     const MyMapsView(),
     const Text(
