@@ -1,7 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_blog_gg/chats/chat_homepage.dart';
+import 'package:flutter_blog_gg/chats/components/chat_homepage.dart';
 import 'package:flutter_blog_gg/maps/google_maps.dart';
 import 'package:flutter_blog_gg/screens/profile.dart';
 import 'package:flutter_blog_gg/tasks/tasks.dart';
