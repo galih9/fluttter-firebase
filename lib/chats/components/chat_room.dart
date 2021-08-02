@@ -101,21 +101,21 @@ class _ChatRoomPageState extends State<ChatRoomPage> {
                         ),
                       ),
                       onPressed: () {
+                        var messageText = chatController.text;
+                        chatController.text = "";
                         message.add({
-                          'messageText': chatController.text,
+                          'messageText': messageText,
                           'sentAt': resTimestamp,
                           'sentBy': user!.uid,
                           'senderDisplayName': user!.displayName
                         }).whenComplete(() {
                           groups.doc(widget.groupId).update({
                             'recentMessage': {
-                              'messageText': chatController.text,
+                              'messageText': messageText,
                               'readBy': {
                                 'sentAt': resTimestamp,
                               }
                             }
-                          }).whenComplete(() {
-                            chatController.text = "";
                           });
                         });
                       },
