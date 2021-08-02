@@ -3,6 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_blog_gg/chats/components/chat_homepage.dart';
 import 'package:flutter_blog_gg/maps/google_maps.dart';
+import 'package:flutter_blog_gg/screens/games_menu.dart';
 import 'package:flutter_blog_gg/screens/profile.dart';
 import 'package:flutter_blog_gg/tasks/tasks.dart';
 
@@ -51,10 +52,7 @@ class _HomePageState extends State<HomePage> {
     const ChatHomePage(),
     const TasksPage(),
     const MyMapsView(),
-    const Text(
-      'Index 3: Settings',
-      style: optionStyle,
-    ),
+    GameMenu(),
   ];
 
   @override
@@ -97,8 +95,8 @@ class _HomePageState extends State<HomePage> {
               label: "Map",
               backgroundColor: Colors.blue),
           BottomNavigationBarItem(
-              icon: Icon(Icons.settings),
-              label: "Settings",
+              icon: Icon(Icons.gamepad),
+              label: "Games",
               backgroundColor: Colors.blue),
         ],
         currentIndex: _selectedIndex,

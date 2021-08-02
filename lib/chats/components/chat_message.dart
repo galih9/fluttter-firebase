@@ -44,15 +44,24 @@ class _ChatMessagesState extends State<ChatMessages> {
                   child: Align(
                     alignment: Alignment.centerLeft,
                     child: Container(
-                      height: 5.h,
                       decoration: BoxDecoration(
                         color: Colors.cyan,
                         borderRadius: BorderRadius.circular(5),
                       ),
-                      child: Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Text(e['messageText']),
-                      ),
+                      child: Stack(children: [
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Text(e['senderDisplayName']),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.only(
+                              top: 30, left: 8, right: 8, bottom: 8),
+                          child: Text(
+                            e['messageText'],
+                            style: TextStyle(fontSize: 20, color: Colors.white),
+                          ),
+                        ),
+                      ]),
                     ),
                   ),
                 );
@@ -62,14 +71,16 @@ class _ChatMessagesState extends State<ChatMessages> {
                   child: Align(
                     alignment: Alignment.centerRight,
                     child: Container(
-                      height: 5.h,
                       decoration: BoxDecoration(
                         color: Colors.blue,
                         borderRadius: BorderRadius.circular(5),
                       ),
                       child: Padding(
                         padding: const EdgeInsets.all(8.0),
-                        child: Text(e['messageText']),
+                        child: Text(
+                          e['messageText'],
+                          style: TextStyle(fontSize: 20, color: Colors.white),
+                        ),
                       ),
                     ),
                   ),

@@ -104,7 +104,8 @@ class _ChatRoomPageState extends State<ChatRoomPage> {
                         message.add({
                           'messageText': chatController.text,
                           'sentAt': resTimestamp,
-                          'sentBy': user!.uid
+                          'sentBy': user!.uid,
+                          'senderDisplayName': user!.displayName
                         }).whenComplete(() {
                           groups.doc(widget.groupId).update({
                             'recentMessage': {

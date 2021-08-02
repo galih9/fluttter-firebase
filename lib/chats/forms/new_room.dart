@@ -13,6 +13,8 @@ class _AddNewRoomState extends State<AddNewRoom> {
   CollectionReference users = FirebaseFirestore.instance.collection("users");
   CollectionReference groups = FirebaseFirestore.instance.collection("group");
   CollectionReference chats = FirebaseFirestore.instance.collection("chat");
+
+  final titleController = TextEditingController();
   final user = FirebaseAuth.instance.currentUser;
   late Timestamp resTimestamp;
   DateTime currentDate = DateTime.now(); //DateTime
@@ -47,28 +49,59 @@ class _AddNewRoomState extends State<AddNewRoom> {
                     subtitle: Text(e['email']),
                     onTap: () {
                       var messageId = chats.doc().id;
-                      // debugPrint(chats.doc().id + ' asdas');
-                      groups.add({
-                        'createdAt': resTimestamp,
-                        'createdBy': user!.uid,
-                        'groupIcon': '',
-                        'groupTitle': e['name'],
-                        'id': messageId,
-                        'members': [user!.uid, e.id],
-                        'recentMessage': {
-                          'messageText': '',
-                          'readBy': {
-                            'sentAt': resTimestamp,
-                            'sentBy': user!.uid
-                          }
-                        },
-                        'type': 1
-                      }).whenComplete(() {
-                        chats
-                            .doc(messageId)
-                            .set({'check': 'check'}).whenComplete(() {
+                      var btn = false;
+                      showDialog(
+                        context: context,
+                        builder: (BuildContext context) => AlertDialog(
+                          title: const Text('Insert room name'),
+                          content: TextField(
+                            controller: titleController,
+                          ),
+                          actions: <Widget>[
+                            TextButton(
+                              onPressed: () {
+                                Navigator.pop(context, 'Cancel');
+                                titleController.text = '';
+                                btn = false;
+                              },
+                              child: const Text('Cancel'),
+                            ),
+                            TextButton(
+                              onPressed: () {
+                                Navigator.pop(context, 'Ok');
+                                groups.add({
+                                  'createdAt': resTimestamp,
+                                  'createdBy': user!.uid,
+                                  'groupIcon': '',
+                                  'groupTitle': titleController.text,
+                                  'id': messageId,
+                                  'members': [user!.uid, e.id],
+                                  'recentMessage': {
+                                    'messageText': '',
+                                    'readBy': {
+                                      'sentAt': resTimestamp,
+                                      'sentBy': user!.uid
+                                    }
+                                  },
+                                  'type': 1
+                                }).whenComplete(() {
+                                  chats
+                                      .doc(messageId)
+                                      .set({'check': 'check'}).whenComplete(() {
+                                    Navigator.pop(context);
+                                  });
+                                });
+                                titleController.text = '';
+                                btn = true;
+                              },
+                              child: const Text('OK'),
+                            ),
+                          ],
+                        ),
+                      ).whenComplete(() {
+                        if (btn) {
                           Navigator.pop(context);
-                        });
+                        }
                       });
                     },
                   );
