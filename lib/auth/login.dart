@@ -57,7 +57,7 @@ class _LoginPageState extends State<LoginPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Simple Login Example"),
+        title: const Text("GG App Test v2"),
         centerTitle: true,
       ),
       body: Container(

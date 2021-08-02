@@ -14,6 +14,7 @@ class ChatMessages extends StatefulWidget {
 class _ChatMessagesState extends State<ChatMessages> {
   late CollectionReference chatData;
   final user = FirebaseAuth.instance.currentUser;
+  ScrollController _scrollController = new ScrollController();
 
   @override
   void initState() {
@@ -36,7 +37,17 @@ class _ChatMessagesState extends State<ChatMessages> {
           if (!snapshot.hasData) {
             return const Center(child: Text("Loading ..."));
           }
+          WidgetsBinding.instance!.addPostFrameCallback((_) {
+            if (_scrollController.hasClients) {
+              _scrollController.animateTo(
+                  _scrollController.position.maxScrollExtent,
+                  duration: const Duration(milliseconds: 500),
+                  curve: Curves.easeOut);
+            }
+          });
+
           return ListView(
+            controller: _scrollController,
             children: snapshot.data!.docs.map((e) {
               if (e['sentBy'] != user!.uid) {
                 return Padding(
